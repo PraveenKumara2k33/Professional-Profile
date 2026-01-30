@@ -1,0 +1,136 @@
+/* Specialized Skewed Scroll Effects for Skills */
+
+.skills-container {
+  overflow: hidden;
+  position: relative;
+  padding: 60px 0;
+  /* Use mask-image for a soft fade on all edges */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 15%,
+    black 85%,
+    transparent
+  ),
+  linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  mask-composite: intersect;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 15%,
+    black 85%,
+    transparent
+  ),
+  linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-composite: source-in;
+}
+
+.skills-skew-wrapper {
+  transform: skewX(12deg); /* Relaxed skew for smoother look */
+  overflow: hidden;
+  position: relative;
+  background: radial-gradient(circle at center, rgba(231, 216, 201, 0.15) 0%, transparent 70%);
+  padding: 5rem 2rem;
+  transition: all 0.5s ease;
+}
+
+.skills-scroll {
+  overflow: hidden;
+  position: relative;
+  height: 28rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  transform: skewX(-12deg);
+}
+
+@media (max-width: 1024px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 5.5rem;
+  background: white;
+  border-radius: 2rem;
+  padding: 0 2rem;
+  border: 1px solid rgba(28, 25, 23, 0.05);
+  box-shadow: 0 4px 15px -5px rgba(28, 25, 23, 0.05);
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: default;
+}
+
+.skill-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--tan);
+  box-shadow: 0 20px 40px -15px rgba(212, 163, 115, 0.2);
+  z-index: 10;
+}
+
+.skill-item span {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: var(--stone-500);
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  transition: color 0.3s ease;
+}
+
+.skill-item:hover span {
+  color: var(--stone-900);
+}
+
+.skill-logo {
+  width: 2.2rem;
+  height: 2.2rem;
+  object-fit: contain;
+  filter: grayscale(1) opacity(0.6);
+  transition: all 0.4s ease;
+}
+
+.skill-item:hover .skill-logo {
+  filter: grayscale(0) opacity(1);
+  transform: rotate(12deg);
+}
+
+@keyframes scroll-vertical {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+.animate-scroll-vertical {
+  animation: scroll-vertical 50s linear infinite; /* Slower for more premium feel */
+}
+
+.animate-scroll-vertical:hover {
+  animation-play-state: paused;
+}
+

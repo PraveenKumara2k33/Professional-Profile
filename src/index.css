@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  body {
+    @apply bg-cream text-stone-900 font-sans antialiased overflow-x-hidden;
+    margin: 0;
+    padding: 0;
+  }
+  
+  ::selection {
+    @apply bg-tan/30 text-stone-900;
+  }
+
+  /* Custom Scrollbar - Warm Theme */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #fdfbf7; /* bg-cream */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #e7d8c9; /* tan-light */
+    border-radius: 10px;
+    border: 2px solid #fdfbf7;
+    transition: background-color 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #d4a373; /* tan */
+  }
+}
+
+:root {
+  --font-display: 'Calistoga', cursive;
+  --font-body: 'Inter', sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-sans {
+  font-family: var(--font-body);
+}
+
+/* Glassmorphism Utilities */
+.glass-card {
+  @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-xl;
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-cyan-400 to-violet-400 animate-gradient;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% auto;
+  animation: gradient 4s linear infinite;
+}
+
+/* Ensure that only CognizantPage disables the cursor */
+.cognizant-page {
+  cursor: none;
+}
