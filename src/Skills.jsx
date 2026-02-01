@@ -29,8 +29,10 @@ import WordpressLogo from "./assets/skills/wordpress.svg";
 import DSALogo from "./assets/skills/DSA.svg";
 import PostManAPILogo from "./assets/skills/postman.svg";
 import "./skills.css";
+import SolarSystem from "./components/SolarSystem";
 
 const Skills = () => {
+  const [viewMode, setViewMode] = useState('list');
   const skills = useMemo(() => [
     { logo: HtmlLogo, name: "HTML5" },
     { logo: CssLogo, name: "CSS3" },
@@ -121,24 +123,70 @@ const Skills = () => {
           </p>
         </motion.div>
 
-        {/* Skewed Scrolling Skills Section */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="skills-container px-4"
-        >
-          <div className="skills-skew-wrapper max-w-6xl mx-auto shadow-inner">
-            <div className="skills-scroll no-scrollbar">
-              <div className="skills-grid animate-scroll-vertical">
-                {/* Quadruple the list for a truly seamless long scroll */}
-                {[...skills, ...skills, ...skills, ...skills].map((skill, index) => (
-                  <SkillItem key={index} skill={skill} index={index} />
-                ))}
-              </div>
-            </div>
+{/* Toggle Switch */}
+        <div className="flex justify-center mb-12">
+          <div className="bg-white p-1 rounded-full border border-stone-200 shadow-sm inline-flex relative">
+             <div 
+               className={`absolute top-1 bottom-1 w-1/2 bg-stone-900 rounded-full transition-all duration-300 ease-spring ${viewMode === 'list' ? 'left-1' : 'left-[calc(50%-4px)] translate-x-full'}`}
+               style={{ transform: viewMode === 'solar' ? 'translateX(0)' : 'translateX(0)' }} // Correction for simpler logic
+             />
+             <motion.div 
+               className={`absolute top-1 bottom-1 rounded-full bg-stone-900 transition-all duration-300`}
+               initial={false}
+               animate={{ 
+                 x: viewMode === 'list' ? 0 : '100%',
+                 width: '50%' 
+               }}
+             />
+             
+            <button
+              onClick={() => setViewMode('list')}
+              className={`relative z-10 px-6 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${viewMode === 'list' ? 'text-white' : 'text-stone-500 hover:text-stone-900'}`}
+            >
+              List View
+            </button>
+            <button
+              onClick={() => setViewMode('solar')}
+              className={`relative z-10 px-6 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${viewMode === 'solar' ? 'text-white' : 'text-stone-500 hover:text-stone-900'}`}
+            >
+              Solar View
+            </button>
           </div>
-        </motion.div>
+        </div>
+
+        {/* Skewed Scrolling Skills Section or Solar System */}
+        <div className="min-h-[600px] flex items-center justify-center">
+            {viewMode === 'list' ? (
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="skills-container px-4 w-full"
+                >
+                  <div className="skills-skew-wrapper max-w-6xl mx-auto shadow-inner">
+                    <div className="skills-scroll no-scrollbar">
+                      <div className="skills-grid animate-scroll-vertical">
+                        {/* Quadruple the list for a truly seamless long scroll */}
+                        {[...skills, ...skills, ...skills, ...skills].map((skill, index) => (
+                          <SkillItem key={index} skill={skill} index={index} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+            ) : (
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.5 }}
+                    className="w-full"
+                >
+                    <SolarSystem skills={skills} />
+                </motion.div>
+            )}
+        </div>
 
         {/* Stats Section */}
         <motion.div
