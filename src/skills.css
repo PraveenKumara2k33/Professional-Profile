@@ -130,7 +130,57 @@
   animation: scroll-vertical 50s linear infinite; /* Slower for more premium feel */
 }
 
+
 .animate-scroll-vertical:hover {
   animation-play-state: paused;
+}
+
+/* Solar System / Atomic Design Styles */
+.solar-system-container {
+  perspective: 1000px;
+}
+
+.center-sun {
+  box-shadow: 0 0 60px rgba(212, 163, 115, 0.4);
+}
+
+.orbit-ring {
+  transform-style: preserve-3d;
+  pointer-events: none; /* Let clicks pass through the ring to the planets */
+}
+
+.planet {
+  pointer-events: auto; /* Re-enable clicks on planets */
+}
+
+@keyframes orbit-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes counter-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+.bg-radial-gradient {
+  background: radial-gradient(circle, var(--tw-gradient-from) 0%, var(--tw-gradient-to) 70%);
+}
+
+.animate-pulse-slow {
+  animation: pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 50px rgba(212, 163, 115, 0.6);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(0.95);
+    box-shadow: 0 0 30px rgba(212, 163, 115, 0.4);
+  }
 }
 
